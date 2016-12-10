@@ -2,20 +2,14 @@ package util
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"strings"
 )
 
-func errorP(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
 func StringToCookie(cookie string) []*http.Cookie {
-	tsav := http.Request{}
-	tsav.Header.Add("Cookie", cookie)
+	header := http.Header{}
+	header.Add("Cookie", cookie)
+	tsav := &http.Request{Header: header}
 	return tsav.Cookies()
 }
 

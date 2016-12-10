@@ -1,12 +1,14 @@
 package util
 
 import (
+	"log"
 	"net/url"
 )
 
 const (
-	USER_AGENT    = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
+	USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
 )
+
 var (
 	LOGIN_ERR_MAP = map[int]string{
 		-105: "验证码错误",
@@ -27,10 +29,12 @@ var (
 	}
 )
 
-var BilibiliURL *url.URL
+var BiliLoginURL *url.URL
 
 func init() {
 	var err error
-	BilibiliURL, err = url.Parse(".bilibili.com")
-	errorP(err)
+	BiliLoginURL, err = url.Parse("https://passport.bilibili.com/ajax/miniLogin/login")
+	if err != nil {
+		log.Fatal(err)
+	}
 }
