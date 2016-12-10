@@ -21,3 +21,8 @@ type UserInfo struct {
 		OfficialVerify   int     `json:"official_verify"`
 	} `json:"data"`
 }
+
+type AddComment struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+}

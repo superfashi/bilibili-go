@@ -34,7 +34,7 @@ type userAccess struct {
 // Log into bilibili with credential.
 func Login(client *http.Client, username, password string) error {
 	// Fake requests to main & login page
-	if req, err := util.Network("http://www.bilibili.com", "GET", ""); err == nil {
+	if req, err := util.Network(util.MAIN_HOST, "GET", ""); err == nil {
 		if _, err = client.Do(req); err != nil {
 			return err
 		}
@@ -111,7 +111,6 @@ func getCaptcha(client *http.Client) (string, error) {
 		return "", err
 	}
 	defer syscall.Unlink(tmpjpg)
-	defer tmpfil.Close()
 
 	if _, err = io.Copy(tmpfil, resp.Body); err != nil {
 		return "", err
@@ -123,7 +122,9 @@ func getCaptcha(client *http.Client) (string, error) {
 	}
 
 	fmt.Print("请输入你看到的验证码并回车：")
-	fmt.Scanf("%s", &ret)
+	if _, err = fmt.Scanf("%s", &ret); err != nil {
+		return "", err
+	}
 	return strings.ToLower(ret), nil
 }
 

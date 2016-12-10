@@ -40,17 +40,3 @@ func NewFromCookie(cookie string) (*Bilibili, error) {
 	ret := &Bilibili{&http.Client{Jar: jar}}
 	return ret, nil
 }
-
-// Determine whether you logged in
-func (b *Bilibili) IsLoggedIn() (bool, error) {
-	req, err := util.Network("https://account.bilibili.com/home/userInfo", "GET", "")
-	if err != nil {
-		return false, err
-	}
-	resp, err := b.Client.Do(req)
-	userinfo := new(util.UserInfo)
-	if err = util.JsonProc(resp, userinfo); err != nil {
-		return false, err
-	}
-	return userinfo.Code == 0, nil
-}
