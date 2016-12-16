@@ -8,8 +8,6 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
-	"github.com/hanbang-wang/bilibili-go/util"
-	"github.com/skratchdot/open-golang/open"
 	"io"
 	"net/http"
 	"net/url"
@@ -17,6 +15,9 @@ import (
 	"path/filepath"
 	"strings"
 	"syscall"
+
+	"github.com/hanbang-wang/bilibili-go/util"
+	"github.com/skratchdot/open-golang/open"
 )
 
 type rsaLogin struct {
@@ -117,11 +118,12 @@ func getCaptcha(client *http.Client) (string, error) {
 	}
 	tmpfil.Close()
 
-	if err = open.Start(tmpjpg); err != nil {
-		return "", err
+	err = open.Start(tmpjpg)
+	if err == nil {
+		fmt.Print("请输入你看到的验证码并回车：")
+	} else {
+		fmt.Printf("打开图片失败，请自行打开%s，输入验证码并回车：", tmpjpg)
 	}
-
-	fmt.Print("请输入你看到的验证码并回车：")
 	if _, err = fmt.Scanf("%s", &ret); err != nil {
 		return "", err
 	}
