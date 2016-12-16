@@ -6,10 +6,10 @@ import (
 )
 
 const (
-	USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
-	MAIN_HOST = "http://www.bilibili.com"
-	VIDEO_URL = "http://www.bilibili.com/video/av%d/"
-	LOGIN_URL = "https://passport.bilibili.com/ajax/miniLogin/login"
+	USER_AGENT  = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
+	MAIN_HOST   = "http://www.bilibili.com"
+	VIDEO_URL   = "http://www.bilibili.com/video/av%d/"
+	LOGIN_URL   = "https://passport.bilibili.com/ajax/miniLogin/login"
 	COMMENT_URL = "http://api.bilibili.com/x/v2/reply/add"
 )
 

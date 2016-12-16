@@ -1,13 +1,14 @@
 package biligo
 
 import (
-	"github.com/hanbang-wang/bilibili-go/util"
+	"fmt"
 	"net/url"
 	"strconv"
-	"fmt"
+
+	"github.com/hanbang-wang/bilibili-go/util"
 )
 
-// Determine whether you logged in
+// IsLoggedIn determines whether you logged in
 func (b *Bilibili) IsLoggedIn() (bool, error) {
 	req, err := util.Network("https://account.bilibili.com/home/userInfo", "GET", "")
 	if err != nil {
@@ -21,7 +22,7 @@ func (b *Bilibili) IsLoggedIn() (bool, error) {
 	return userinfo.Code == 0, nil
 }
 
-// Send a comment, return success or not.
+// SendComment sends a comment, returns success or not.
 // Requesting too quick will cause captcha requirement.
 func (b *Bilibili) SendComment(oid int, message string) (int, error) {
 	ret := new(util.AddComment)
@@ -46,7 +47,7 @@ func (b *Bilibili) SendComment(oid int, message string) (int, error) {
 	}
 	defer resp.Body.Close()
 	if err = util.JsonProc(resp, ret); err != nil {
-		return false, err
+		return -1, err
 	}
 	if ret.Code != 0 {
 		return ret.Code, fmt.Errorf("Unknown error! Server returned %d with message %s.", ret.Code, ret.Message)

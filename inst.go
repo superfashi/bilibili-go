@@ -11,7 +11,7 @@ type Bilibili struct {
 	Client *http.Client
 }
 
-// Login Bilibili with credentials.
+// NewFromLogin logs into Bilibili with credentials.
 func NewFromLogin(username, password string) (*Bilibili, error) {
 	jar, err := cookiejar.New(nil)
 	if err != nil {
@@ -24,7 +24,7 @@ func NewFromLogin(username, password string) (*Bilibili, error) {
 	return ret, nil
 }
 
-// Login Bilibili with cookie
+// NewFromCookie log into Bilibili with cookie
 // Strongly deprecated
 func NewFromCookie(cookie string) (*Bilibili, error) {
 	jar, err := cookiejar.New(nil)
