@@ -32,7 +32,7 @@ type userAccess struct {
 	} `json:"message"`
 }
 
-// Log into bilibili with credential.
+// Login logs into bilibili with credential.
 func Login(client *http.Client, username, password string) error {
 	// Fake requests to main & login page
 	if req, err := util.Network(util.MAIN_HOST, "GET", ""); err == nil {
@@ -84,13 +84,11 @@ func Login(client *http.Client, username, password string) error {
 	}
 	if user.Status {
 		return nil
-	} else {
-		if info, ok := util.LOGIN_ERR_MAP[user.Message.Code]; ok {
-			return errors.New(info)
-		} else {
-			return fmt.Errorf("Unknown error with code: %d", user.Message.Code)
-		}
 	}
+	if info, ok := util.LOGIN_ERR_MAP[user.Message.Code]; ok {
+		return errors.New(info)
+	}
+	return fmt.Errorf("Unknown error with code: %d", user.Message.Code)
 }
 
 func getCaptcha(client *http.Client) (string, error) {

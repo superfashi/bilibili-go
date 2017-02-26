@@ -34,6 +34,7 @@ func Network(url, method, query string) (req *http.Request, err error) {
 
 // JsonProc reduces some duplicate code.
 func JsonProc(body *http.Response, container interface{}) error {
+	defer body.Body.Close()
 	if err := json.NewDecoder(body.Body).Decode(container); err != nil {
 		return err
 	}

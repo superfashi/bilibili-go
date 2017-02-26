@@ -1,12 +1,14 @@
 package biligo
 
 import (
-	"github.com/hanbang-wang/bilibili-go/login"
-	"github.com/hanbang-wang/bilibili-go/util"
 	"net/http"
 	"net/http/cookiejar"
+
+	"github.com/hanbang-wang/bilibili-go/login"
+	"github.com/hanbang-wang/bilibili-go/util"
 )
 
+// Bilibili is a struct for easy net.Client access
 type Bilibili struct {
 	Client *http.Client
 }
